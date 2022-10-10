@@ -6,6 +6,8 @@ from uuid import uuid4
 
 class Group(models.Model):
     name = models.CharField(max_length=20)
+    code = models.UUIDField(primary_key=True, default=uuid4())
+
 
     def __str__(self):
         return self.name
@@ -18,8 +20,14 @@ class Person(models.Model):
     description = models.TextField(blank=True)
     email = models.EmailField(unique=True, blank=True)
     phone_number = models.IntegerField(unique=True, blank=True)
-    group = models.ManyToManyField(to=Group, related_name="Person-Group")
+    group = models.ManyToManyField(to=Group, related_name="Person-Group+")
 
     def __str__(self):
         return self.name
 
+
+class Object(models.Model):
+    name = models.CharField(max_length=20)
+    code = models.UUIDField(primary_key=True, default=uuid4())
+    image = models.ImageField()
+    description = models.TextField(blank=True)
